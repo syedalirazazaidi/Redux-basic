@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import * as actionCreator from './Store/Action';
+class App extends Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = { 
+  //     age  :21
+  //    };
+  // }
+  // ageUp=()=>{
+  //   this.setState({
+  //     age  : this.state.age+1
+  //   })
+  // }
+  // ageDown=()=>{
+  //   this.setState({
+  //     ...this.state,
+  //     age : this.state.age- 1
+  //   })
+  // }
+  render() {
+    return (
+      <div>
+        <div>A =<span>{this.props.a}</span></div>
+        <div><button onClick={this.props.ageUp}>Age Up</button></div>
+        <div>B =<span>{this.props.b}</span></div>
+        <div><button onClick={this.props.ageDown}>Age Do</button></div>
+      </div>
+    );
+  }
+}
+const mapStateToProps = (state) => {
+  return {a : state.a,
+    b:state.b,
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    ageUp: () => dispatch(actionCreator.ageUp(1)),
+    ageDown: () => dispatch(actionCreator.ageDown(1))
+  }
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
